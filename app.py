@@ -38,11 +38,13 @@ def handle_user_inputs(data):
     else:
         url = host_url
     print(url)
+    regenerate = data['regenerate']
     client = data['client']
     project = data['project']
     model = data['model']
 
     # Store the input info in session of Flask
+    session['regenerate'] = regenerate
     session['client'] = client
     session['project'] = project
     session['model'] = model
@@ -53,7 +55,7 @@ def handle_user_inputs(data):
     session['ifc'] = ifcopenshell.open(ifc_pth)
 
     # Start long-running process in a separate thread
-    threading.Thread(target=run_conversion, args=(url, True, client, project, model)).start()
+    threading.Thread(target=run_conversion, args=(url, regenerate, client, project, model)).start()
 
     # Post the opened model info on server
     socketio.emit('user_opens', {'model_path': ifc_pth})
@@ -73,7 +75,7 @@ def run_conversion(url, regen, client, project, model):
         )
         print(result.stdout.decode('utf-8'))
         # Notify the client that the process is completed
-        socketio.emit('process_completed', {'url': url, 'client': client, 'project': project, 'model': model})
+        socketio.emit('process_completed', {'url': url, 'regenerate': regen, 'client': client, 'project': project, 'model': model})
 
     except subprocess.CalledProcessError as e:
         print(f"Error: {e.stderr.decode('utf-8')}")
