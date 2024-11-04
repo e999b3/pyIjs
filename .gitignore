@@ -1,3 +1,9 @@
+# Front-end libraries
+frontend/node_modules
+converter/node_modules
+static/ifc
+static/ifc/converted
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

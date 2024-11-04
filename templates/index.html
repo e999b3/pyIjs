@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logotyb_fav_violet.png')}}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyIjs</title>
+    <script type="module" crossorigin src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+
+  </head>
+  <body>
+    <h1>Server Response</h1>
+    <p id="status">Waiting for submission...</p>
+    <form id="inputForm">
+      <label>Convert Models</label>
+      <input type="text" id="client" name="client" placeholder="Enter Client name">
+      <input type="text" id="project" name="project" placeholder="Enter Project name">
+      <input type="text" id="model" name="model" placeholder="Enter Model name">
+      <label for="regenerate">
+        <input type="checkbox" id="regenerate" name="regenerate" value="yes">
+        Force regenerate tiles
+      </label>
+      <button type="submit">Convert and Import</button>
+    </form>
+    <!-- Spinner -->
+    <div id="spinner"></div>
+
+    <div id="app">
+      <div class="inner" id="container"></div>
+    </div>
+
+    <!-- Include the Socket.IO client library from CDN -->
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  </body>
+</html>

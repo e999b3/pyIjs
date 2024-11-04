@@ -1,0 +1,10 @@
+runtime: python310
+
+entrypoint: gunicorn -w 1 -k eventlet -b :$PORT app:app
+
+handlers:
+- url: /.*
+  script: auto
+
+network:
+  session_affinity: true
