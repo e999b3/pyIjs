@@ -74,6 +74,9 @@ project:{project} / model: {model}.ifc")
             stderr=subprocess.PIPE
         )
         print(result.stdout.decode('utf-8'))
+        
+        # Send percentage of process to frontend
+        socketio.emit('in_process', {'processed': result.stdout})
         # Notify the client that the process is completed
         socketio.emit('process_completed', {'url': url, 'regenerate': regen, 'client': client, 'project': project, 'model': model})
 

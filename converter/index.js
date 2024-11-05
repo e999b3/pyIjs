@@ -20,9 +20,6 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
     console.log(`Folder ${outPath} created`);
   }
 
-  
-
-
   if (forced) {
 
     const callback = (offset, size) => {
@@ -89,7 +86,7 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
     });
   
     geometryTiler.onProgress.add((progress) => {
-      console.log(progress);
+      console.log(`${Number(progress * 100)}%`);
     });
   
     await geometryTiler.streamFromCallBack(callback);
@@ -125,7 +122,7 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
     });
   
     propsTiler.onProgress.add(async (progress) => {
-      console.log(progress);
+      console.log(`${Number(progress * 100)}%`);
     });
   
     propsTiler.onIndicesStreamed.add(async (props) => {

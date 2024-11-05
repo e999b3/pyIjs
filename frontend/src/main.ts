@@ -109,8 +109,16 @@ document.getElementById('inputForm')?.addEventListener('submit', (e) => {
   });
 
   // Update status to indicate process started
-  document.getElementById('status')!.innerText = 'Converting...';
+  // document.getElementById('status')!.innerText = 'Converting...';
 });
+
+socket.on('in_process', (data: {
+  processed: string
+}) => {
+  console.log('progress: ', data.processed);
+  // Showing converting progress
+  document.getElementById('status')!.innerText = `Converting... ${data.processed}`
+})
 
 socket.on('process_completed', (data: {
   url:string, regenerate: boolean, client: string, project: string, model: string
