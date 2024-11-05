@@ -9,7 +9,7 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
   // const outPath = `./resources/converted/${outputName}/`;
   const outPath = `./static/ifc/converted/${structure}/`;
 
-  let forced = regenerate;
+  let forced = (regenerate.toLowerCase() === "true");
 
   if (fs.existsSync(outPath)) {
     // fs.rmSync(outPath, { recursive: true, force: true });
@@ -20,14 +20,18 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
     console.log(`Folder ${outPath} created`);
   }
 
+  
+
+
   if (forced) {
+
     const callback = (offset, size) => {
       let data = new Uint8Array(size);
       let bytesRead = fs.readSync(input, data, 0, size, offset);
       if (bytesRead <= 0) return new Uint8Array(0);
       return data;
     };
-  
+
     const components = new OBC.Components();
   
     // Convert geometry

@@ -19,8 +19,5 @@ __pycache__/
 /setup.cfg
 
 # Ignore locally converted files
-static/ifc
 static/ifc/converted
-frontend/
-frontend/node_modules
-converter/node_modules
+frontend

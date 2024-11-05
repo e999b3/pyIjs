@@ -62,13 +62,13 @@ def handle_user_inputs(data):
 
 def run_conversion(url, regen, client, project, model):     
     print(f"User entered: must regenerate: {regen} / client: {client} / \
-        project:{project} / model: {model}.ifc")
+project:{project} / model: {model}.ifc")
 
     js = r'./converter/index.js'
 
     try:
         result = subprocess.run(
-            ['node', js, regen, client, project, model], 
+            ['node', js, str(regen), client, project, model], 
             check=True, 
             stdout=subprocess.PIPE, 
             stderr=subprocess.PIPE
@@ -130,5 +130,6 @@ def handle_message(data):
     socketio.emit('response', {'message': 'Message received by Flask'})
 
 if __name__=='__main__':
-    socketio.run(app, host='0.0.0.0', port=8080, debug=True)
+    # socketio.run(app, host='0.0.0.0', port=8080, debug=True)
+    socketio.run(app, port=8080, debug=True)
 

@@ -98,20 +98,19 @@ document.getElementById('inputForm')?.addEventListener('submit', (e) => {
   document.getElementById('spinner')!.style.display = 'block';
 
   // Get client, project and model values
-  const regenerate = (document.getElementById('regenerate')! as HTMLInputElement).checked
+  const regen = (document.getElementById('regenerate')! as HTMLInputElement).checked
   const client = (document.getElementById('client')! as HTMLInputElement).value
   const project = (document.getElementById('project')! as HTMLInputElement).value
   const model = (document.getElementById('model')! as HTMLInputElement).value
 
   // Send user input to the server
   socket.emit('user_inputs', {
-    regenerate: regenerate, client: client, project: project, model: model
+    regenerate: regen, client: client, project: project, model: model
   });
 
   // Update status to indicate process started
   document.getElementById('status')!.innerText = 'Converting...';
 });
-
 
 socket.on('process_completed', (data: {
   url:string, regenerate: boolean, client: string, project: string, model: string
@@ -120,7 +119,9 @@ socket.on('process_completed', (data: {
   document.getElementById('spinner')!.style.display = 'none';
 
   console.log(data);
-  const baseUrl = `${data.url}/static/ifc/converted/${data.client}/${data.project}/`
+  // const baseUrl = `${data.url}/static/ifc/converted/${data.client}/${data.project}/`
+  const baseUrl = `./static/ifc/converted/${data.client}/${data.project}/`
+  console.log(baseUrl);
 
   // Stremer
   const streamer = components.get(OBF.IfcStreamer);

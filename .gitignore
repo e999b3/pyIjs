@@ -1,3 +1,6 @@
+# Helper scripts
+postbuild.py
+
 # Front-end libraries
 frontend/node_modules
 converter/node_modules
