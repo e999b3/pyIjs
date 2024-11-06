@@ -67,16 +67,19 @@ project:{project} / model: {model}.ifc")
     js = r'./converter/index.js'
 
     try:
-        result = subprocess.run(
+        result = subprocess.Popen(
             ['node', js, str(regen), client, project, model], 
-            check=True, 
+            #check=True, 
             stdout=subprocess.PIPE, 
-            stderr=subprocess.PIPE
+            stderr=subprocess.PIPE,
+            text=True
         )
-        print(result.stdout.decode('utf-8'))
-        
-        # Send percentage of process to frontend
-        socketio.emit('in_process', {'processed': result.stdout})
+        for line in iter(result.stdout.readline, ''):
+            try:
+                socketio.emit('in_process', {'processed': f"{float(line)*100}%"})
+            except:
+                socketio.emit('in_process', {'processed': line})
+
         # Notify the client that the process is completed
         socketio.emit('process_completed', {'url': url, 'regenerate': regen, 'client': client, 'project': project, 'model': model})
 

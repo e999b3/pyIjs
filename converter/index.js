@@ -86,7 +86,7 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
     });
   
     geometryTiler.onProgress.add((progress) => {
-      console.log(`${Number(progress * 100)}%`);
+      console.log(progress);
     });
   
     await geometryTiler.streamFromCallBack(callback);
@@ -122,7 +122,7 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
     });
   
     propsTiler.onProgress.add(async (progress) => {
-      console.log(`${Number(progress * 100)}%`);
+      console.log(progress);
     });
   
     propsTiler.onIndicesStreamed.add(async (props) => {
