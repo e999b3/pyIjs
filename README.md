@@ -8,6 +8,8 @@ Once an uploaded model is converted to "tiles" (including both geometries and pr
 
 Previously known as Ifcjs, openbim-components play a pivotal role in the open BIM ecosystem, particularly in handling IFC models. However, implementing IfcStreamer requires substantial back-end processing power. For IFC data manipulation, the IfcOpenShell community offers a mature and stable framework, especially when combined with Python’s rich ecosystem of data science libraries. This integration supports efficient data handling and enhanced interoperability in the open BIM field.
 
+![intro](/media/intro.gif)
+
 ## Converter
 
 
