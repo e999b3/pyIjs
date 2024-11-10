@@ -1,6 +1,6 @@
 # pyIjs
 
-**Py-I-Js** (Python-IFC-Javascript) is a project focused on bridging the gap between viewing IFC models and editing their properties.
+**Py-I-Js** (Python-IFC-Javascript) is a project focused on bridging the gap between viewing IFC models and editing their information.
 
 The viewer leverages the open-source [openbim-components](https://github.com/ThatOpen/engine_components) library, offering advanced visualization capabilities through the state-of-the-art [IfcStreamer](https://docs.thatopen.com/Tutorials/Components/Front/IfcStreamer) technology.
 
@@ -10,21 +10,49 @@ Previously known as Ifcjs, openbim-components play a pivotal role in the open BI
 
 ![intro](/media/intro.gif)
 
-## Converter
+## How to Use
 
+This repository is created using Flask framework. 
+Following the schema of Flask, the application automatically renders `templates/index.html` as its front-end, along with `static/js/script.js` and `static/css/styles.css`, and all the public files should be located the in the `static` folder, such as Ifc models in `static/ifc` or the converted tile files in `static/ifc/converted`.
 
-## Front-end
+### Back-end
 
-## Back-end
+#### Run with a local host
 
-### Run with a local host
+To run the app with a local host, just open downloaded repository folder in your terminal if it's on Mac or Linux. For Windows, my recommendation would be to install the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install), and run with Linux subsystem. Then, create a virtual environment in the root folder, activate it and **restore** all the packages by running 
 
-To run the app with a local host is simple, just open your terminal on Mac or Linux and for Windows, my recommendation would be to install the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install), and with a virtual environment activated in the terminal execute:
+`pip install -r requirements.txt`
+
+Finally, with virtual environment activated, in the terminal execute:
 
 `gunicorn -w 1 -k eventlet -b localhost:8000 app:app`
 
-### Run on Google Cloud
+Open your browser at `localhost:8000`, you'll see the viewer is up and running. 
 
-For Google users, Google Cloud Platform provides $300 in free credits for 90 days to check out its 20+ products. To deploy this repository to the cloud, execute this command in the app folder.
+#### Run on Google Cloud
+
+For Google users, Google Cloud Platform provides $300 in free credits for 90 days to check out its 20+ products. It's definitely worth to tryout!
+
+To deploy this repository to the cloud, execute this command in the app folder.
 
 ```gcloud run deploy --source .```
+
+This will upload all your contents to your Google Cloud Platform and the app will run with Docker container. Modify the `Dockerfile` accordingly.
+
+### Converter
+
+The `converter` folder itself is a npm project. To restore it, run `yarn install` in the terminal. 
+
+When tbe conversion starts, the Flask applicaiton uses a subprocess to generate tile with `converter/index.js`. The tile files will be generated in the `static/ifc/converted` folder, further with the same structure as the given Ifc model: `client/project/model.ifc`
+
+### Front-end
+
+The front-end showing in the browser is a built distribution from `frontend` folder, which is also a npm project. To modify the front-end, the project can be restored with running `yarn install` and to build it with `yarn build`. At the moment, the `script.js` and `styles.css` have to be copied to `static/js` and `static/css/` respectively. Since you might be testing your front-end separately without running the back-end Flask server, if there is any change in your `index.html`, don't forget to modify the one in the `templates` folder accordingly.
+
+## Next steps
+
+- [ ] Possibility to include the frontend project without building it?
+- [ ] Interface to upload Ifc model. 
+- [ ] Trigger conversion once the Ifc model is uploaded.
+- [ ] Connection to Google Cloud Storage / Google Drive.
+
