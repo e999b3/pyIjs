@@ -9,6 +9,12 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
   // const outPath = `./resources/converted/${outputName}/`;
   const outPath = `./static/ifc/converted/${structure}/`;
 
+  // If input file doesn't exist, program exits
+  if (!fs.existsSync(input)) {
+    console.log(`File ${input} does not exist.`);
+    process.exit(1);
+  }
+
   let forced = (regenerate.toLowerCase() === "true");
 
   if (fs.existsSync(outPath)) {
@@ -20,7 +26,7 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
     console.log(`Folder ${outPath} created`);
   }
 
-  if (forced) {
+  if (forced) { // If forced to regenerate tile, ...
 
     const callback = (offset, size) => {
       let data = new Uint8Array(size);
@@ -65,9 +71,6 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
     });
   
     geometryTiler.onAssetStreamed.add((assets) => {
-      // for (const asset of assets) {
-      //     assetsData.push(asset);
-      // }
       assetsData = [...assetsData, ...assets];
     });
   
@@ -140,11 +143,6 @@ async function generateTiles(regenerate, client, proj, ifcIn) {
 
 }
 
-// for(let i = 1; i < 4; i++) {
-//   const baseName = "autility";
-//   const name = `autility-${i}`;
-//   await generateTiles(name, baseName);
-// }
 const regenerate = process.argv[2]
 const client = process.argv[3]
 const proj = process.argv[4]
