@@ -18,7 +18,7 @@ The project utilizes the open-source [openbim-components](https://github.com/Tha
 
 ## Getting Started
 
-This repository is built using the Flask framework. Following Flask's structure:
+This repository is built using the **Flask** framework. Following Flask's structure:
 - The front-end is rendered from `templates/index.html`.
 - Supporting static files such as JavaScript, CSS, and IFC models are located in the `static` folder.
 
@@ -47,7 +47,7 @@ Open your browser and navigate to `http://localhost:8000` to access the viewer.
 
 #### Deployment on Google Cloud
 
-Google Cloud Platform offers $300 in free credits for 90 days, providing an excellent opportunity to test its services.
+**Google Cloud Platform** offers **$300** in free credits for 90 days, providing an excellent opportunity to test its services.
 
 To deploy the app:
 
